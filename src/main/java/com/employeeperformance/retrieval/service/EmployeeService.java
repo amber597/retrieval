@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,8 +50,10 @@ public class EmployeeService {
                 ))
                 .collect(Collectors.toList());
 
-        Employee manager = emp.getManager();
-        ManagerDTO managerDTO = new ManagerDTO(manager.getId(), manager.getName(), manager.getEmail());
+        ManagerDTO managerDTO = Optional.ofNullable(emp.getManager())
+                .map(m -> new ManagerDTO(m.getId(), m.getName(), m.getEmail()))
+                .orElse(null);
+
 
         return new EmployeeDetailsDTO(
                 emp.getId(),
