@@ -7,6 +7,7 @@
 
 Database Setup
 psql -U <username> -d postgres -f src/main/resources/employee_performance.sql
+
 db username and passwerd are user and password
 
 ## Running the Application
