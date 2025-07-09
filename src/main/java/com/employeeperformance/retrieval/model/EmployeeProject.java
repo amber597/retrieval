@@ -1,5 +1,6 @@
 package com.employeeperformance.retrieval.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,6 +30,7 @@ public class EmployeeProject {
 
     @ManyToOne
     @MapsId("employeeId")
+    @JsonIgnore
     private Employee employee;
 
     @ManyToOne

@@ -1,5 +1,6 @@
 package com.employeeperformance.retrieval.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
@@ -18,5 +19,6 @@ public class Project {
     private LocalDate endDate;
 
     @ManyToOne
+    @JsonIgnore
     private Department department;
 }

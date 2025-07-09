@@ -1,5 +1,6 @@
 package com.employeeperformance.retrieval.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -21,15 +22,19 @@ public class Employee {
     private Double salary;
 
     @ManyToOne
+    @JsonIgnore
     private Department department;
 
     @ManyToOne
     @JoinColumn(name = "manager_id")
+    @JsonIgnore
     private Employee manager;
 
     @OneToMany(mappedBy = "employee")
-    private Set<EmployeeProject> employeeProjects;
+    @JsonIgnore
+    private List<EmployeeProject> employeeProjects;
 
     @OneToMany(mappedBy = "employee")
+    @JsonIgnore
     private List<PerformanceReview> performanceReviews;
 }

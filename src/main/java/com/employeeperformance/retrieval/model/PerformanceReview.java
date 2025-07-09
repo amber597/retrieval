@@ -1,5 +1,6 @@
 package com.employeeperformance.retrieval.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
@@ -14,6 +15,7 @@ public class PerformanceReview {
     private Long id;
 
     @ManyToOne
+    @JsonIgnore
     private Employee employee;
 
     private LocalDate reviewDate;

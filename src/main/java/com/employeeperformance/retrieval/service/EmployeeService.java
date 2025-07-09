@@ -1,8 +1,6 @@
 package com.employeeperformance.retrieval.service;
 
-import com.employeeperformance.retrieval.dto.EmployeeDetailsDTO;
-import com.employeeperformance.retrieval.dto.PerformanceReviewDTO;
-import com.employeeperformance.retrieval.dto.ProjectAssignmentDTO;
+import com.employeeperformance.retrieval.dto.*;
 import com.employeeperformance.retrieval.model.Employee;
 import com.employeeperformance.retrieval.model.PerformanceReview;
 import com.employeeperformance.retrieval.repository.EmployeeRepository;
@@ -21,9 +19,15 @@ public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
 
-    public List<Employee> filterEmployees(Integer score, LocalDate reviewDate, List<Long> departmentIds, List<Long> projectIds) {
+    public List<EmployeeListDTO> filterEmployees(Integer score, LocalDate reviewDate, List<Long> departmentIds, List<Long> projectIds) {
         List<Employee> employees = employeeRepository.findFilteredEmployees(score, reviewDate, departmentIds, projectIds);
-        return employees;
+
+        List<EmployeeListDTO> employeeListDTO = employees.stream().map(emp -> {
+            ManagerDTO manager = new ManagerDTO(emp.getManager().getId(), emp.getManager().getName(), emp.getManager().getEmail());
+            return new EmployeeListDTO(emp.getId(), emp.getName(), emp.getEmail(), manager, emp.getDepartment());
+        }).collect(Collectors.toList());
+
+        return employeeListDTO;
     }
 
     public EmployeeDetailsDTO getEmployeeDetails(Long id) {
@@ -45,10 +49,14 @@ public class EmployeeService {
                 ))
                 .collect(Collectors.toList());
 
+        Employee manager = emp.getManager();
+        ManagerDTO managerDTO = new ManagerDTO(manager.getId(), manager.getName(), manager.getEmail());
+
         return new EmployeeDetailsDTO(
                 emp.getId(),
                 emp.getName(),
                 emp.getEmail(),
+                managerDTO,
                 emp.getDepartment(),
                 projectAssignments,
                 top3

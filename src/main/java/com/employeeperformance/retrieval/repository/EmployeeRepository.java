@@ -17,9 +17,9 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
             "JOIN ep.project p " +
             "JOIN e.performanceReviews pr " +
             "WHERE (:score IS NULL OR pr.score = :score) " +
-            "AND (:reviewDate IS NULL OR pr.reviewDate = :reviewDate) " +
+            "AND (cast(:reviewDate as date) IS NULL OR pr.reviewDate = :reviewDate) " +
             "AND (:departmentIds IS NULL OR d.id IN :departmentIds) " +
-            "AND (:projectIds IS NULL OR p.name IN :projectIds)")
+            "AND (:projectIds IS NULL OR p.id IN :projectIds)")
     List<Employee> findFilteredEmployees(
             @Param("score") Integer score,
             @Param("reviewDate") LocalDate reviewDate,

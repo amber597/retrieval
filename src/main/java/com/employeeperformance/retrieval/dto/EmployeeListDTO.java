@@ -10,12 +10,10 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeeDetailsDTO {
+public class EmployeeListDTO {
     private Long id;
     private String name;
     private String email;
     private ManagerDTO manager;
     private Department department;
-    private List<ProjectAssignmentDTO> projectAssignments;
-    private List<PerformanceReviewDTO> recentReviews;
 }
