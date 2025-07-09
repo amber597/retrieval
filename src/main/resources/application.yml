@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: retrieval
+  datasource:
+    url: jdbc:postgresql://localhost:5432/employee_performance.db
+    username: postgres
+    password: yourpassword
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
